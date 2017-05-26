@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.ExamScoreMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.ExamScore" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="user_id" property="userId" jdbcType="CHAR" />
+    <result column="exam_time" property="examTime" jdbcType="TIMESTAMP" />
+    <result column="exam_score" property="examScore" jdbcType="VARCHAR" />
+    <result column="exam_grade" property="examGrade" jdbcType="VARCHAR" />
+    <result column="exam_zhishidian" property="examZhishidian" jdbcType="VARCHAR" />
+    <result column="exam_xueke" property="examXueke" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, user_id, exam_time, exam_score, exam_grade, exam_zhishidian, exam_xueke
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from exam_score
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from exam_score
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.ExamScore" >
+    insert into exam_score (refrenceid, user_id, exam_time, 
+      exam_score, exam_grade, exam_zhishidian, 
+      exam_xueke)
+    values (#{refrenceid,jdbcType=CHAR}, #{userId,jdbcType=CHAR}, #{examTime,jdbcType=TIMESTAMP}, 
+      #{examScore,jdbcType=VARCHAR}, #{examGrade,jdbcType=VARCHAR}, #{examZhishidian,jdbcType=VARCHAR}, 
+      #{examXueke,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.ExamScore" >
+    insert into exam_score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="examTime != null" >
+        exam_time,
+      </if>
+      <if test="examScore != null" >
+        exam_score,
+      </if>
+      <if test="examGrade != null" >
+        exam_grade,
+      </if>
+      <if test="examZhishidian != null" >
+        exam_zhishidian,
+      </if>
+      <if test="examXueke != null" >
+        exam_xueke,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="examTime != null" >
+        #{examTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examScore != null" >
+        #{examScore,jdbcType=VARCHAR},
+      </if>
+      <if test="examGrade != null" >
+        #{examGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="examZhishidian != null" >
+        #{examZhishidian,jdbcType=VARCHAR},
+      </if>
+      <if test="examXueke != null" >
+        #{examXueke,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.ExamScore" >
+    update exam_score
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=CHAR},
+      </if>
+      <if test="examTime != null" >
+        exam_time = #{examTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examScore != null" >
+        exam_score = #{examScore,jdbcType=VARCHAR},
+      </if>
+      <if test="examGrade != null" >
+        exam_grade = #{examGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="examZhishidian != null" >
+        exam_zhishidian = #{examZhishidian,jdbcType=VARCHAR},
+      </if>
+      <if test="examXueke != null" >
+        exam_xueke = #{examXueke,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.ExamScore" >
+    update exam_score
+    set user_id = #{userId,jdbcType=CHAR},
+      exam_time = #{examTime,jdbcType=TIMESTAMP},
+      exam_score = #{examScore,jdbcType=VARCHAR},
+      exam_grade = #{examGrade,jdbcType=VARCHAR},
+      exam_zhishidian = #{examZhishidian,jdbcType=VARCHAR},
+      exam_xueke = #{examXueke,jdbcType=VARCHAR}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+</mapper>

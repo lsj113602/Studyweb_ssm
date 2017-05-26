@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.QuesanswerMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.Quesanswer" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="quid" property="quid" jdbcType="CHAR" />
+    <result column="qatext" property="qatext" jdbcType="VARCHAR" />
+    <result column="qatime" property="qatime" jdbcType="TIMESTAMP" />
+    <result column="qasupport" property="qasupport" jdbcType="INTEGER" />
+    <result column="qaopposition" property="qaopposition" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="CHAR" />
+    <result column="isno" property="isno" jdbcType="INTEGER" />
+    <association property="user" column="refrenceid" javaType="com.lsj.studyweb.model.DbUser">
+            <id column="userRefrenceId" jdbcType="CHAR" property="refrenceid"/>
+		    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+		    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+		    <result column="user_truename" property="userTruename" jdbcType="VARCHAR" />
+		    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+		    <result column="user_status" property="userStatus" jdbcType="BIT" />
+		    <result column="user_activationCode" property="userActivationcode" jdbcType="VARCHAR" />
+		    <result column="user_idcard" property="userIdcard" jdbcType="VARCHAR" />
+		    <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+		    <result column="user_qq" property="userQq" jdbcType="VARCHAR" />
+		    <result column="user_setbacks" property="userSetbacks" jdbcType="VARCHAR" />
+		    <result column="uuser_way" property="uuserWay" jdbcType="VARCHAR" />
+		    <result column="user_class" property="userClass" jdbcType="VARCHAR" />
+		    <result column="user_points" property="userPoints" jdbcType="INTEGER" />
+		    <result column="user_data" property="userData" jdbcType="TIMESTAMP" />
+		    <result column="user_job" property="userJob" jdbcType="VARCHAR" />
+		    <result column="user_level" property="userLevel" jdbcType="VARCHAR" />
+		    <result column="user_imgsrc" property="userImgsrc" jdbcType="VARCHAR" />
+		    <result column="mark" property="mark" jdbcType="INTEGER" />
+        </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, quid, qatext, qatime, qasupport, qaopposition, uid, isno
+  </sql>
+    <sql id="Base_User_List" >
+    qa.refrenceid as refrenceid, qa.quid as quid, qa.qatext as qatext, qa.qatime as qatime,
+    qa.qasupport as qasupport, qa.qaopposition as qaopposition, qa.uid as uid, qa.isno as isno,
+    u.refrenceid as userRefrenceId, u.user_name as user_name, u.user_password as user_password, u.user_truename as user_truename, u.user_email as user_email,
+    u.user_status as user_status, u.user_activationCode as user_activationCode,
+    u.user_idcard as user_idcard,u.user_tel as user_tel,u.user_qq as user_qq,u.user_setbacks as user_setbacks,
+    u.uuser_way as uuser_way,u.user_class as user_class,u.user_points as user_points,
+    u.user_data as user_data,u.user_job as user_job,
+    u.user_level as user_level,u.user_imgsrc as user_imgsrc,u.mark as mark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from quesanswer
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from quesanswer
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.Quesanswer" >
+    insert into quesanswer (refrenceid, quid, qatext, 
+      qatime, qasupport, qaopposition, 
+      uid, isno)
+    values (#{refrenceid,jdbcType=CHAR}, #{quid,jdbcType=CHAR}, #{qatext,jdbcType=VARCHAR}, 
+      #{qatime,jdbcType=TIMESTAMP}, #{qasupport,jdbcType=INTEGER}, #{qaopposition,jdbcType=INTEGER}, 
+      #{uid,jdbcType=CHAR}, #{isno,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.Quesanswer" >
+    insert into quesanswer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="quid != null" >
+        quid,
+      </if>
+      <if test="qatext != null" >
+        qatext,
+      </if>
+      <if test="qatime != null" >
+        qatime,
+      </if>
+      <if test="qasupport != null" >
+        qasupport,
+      </if>
+      <if test="qaopposition != null" >
+        qaopposition,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="isno != null" >
+        isno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="quid != null" >
+        #{quid,jdbcType=CHAR},
+      </if>
+      <if test="qatext != null" >
+        #{qatext,jdbcType=VARCHAR},
+      </if>
+      <if test="qatime != null" >
+        #{qatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qasupport != null" >
+        #{qasupport,jdbcType=INTEGER},
+      </if>
+      <if test="qaopposition != null" >
+        #{qaopposition,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=CHAR},
+      </if>
+      <if test="isno != null" >
+        #{isno,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.Quesanswer" >
+    update quesanswer
+    <set >
+      <if test="quid != null" >
+        quid = #{quid,jdbcType=CHAR},
+      </if>
+      <if test="qatext != null" >
+        qatext = #{qatext,jdbcType=VARCHAR},
+      </if>
+      <if test="qatime != null" >
+        qatime = #{qatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="qasupport != null" >
+        qasupport = #{qasupport,jdbcType=INTEGER},
+      </if>
+      <if test="qaopposition != null" >
+        qaopposition = #{qaopposition,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=CHAR},
+      </if>
+      <if test="isno != null" >
+        isno = #{isno,jdbcType=INTEGER},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.Quesanswer" >
+    update quesanswer
+    set quid = #{quid,jdbcType=CHAR},
+      qatext = #{qatext,jdbcType=VARCHAR},
+      qatime = #{qatime,jdbcType=TIMESTAMP},
+      qasupport = #{qasupport,jdbcType=INTEGER},
+      qaopposition = #{qaopposition,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=CHAR},
+      isno = #{isno,jdbcType=INTEGER}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <!--根据问题ID查找问题答案  -->
+  <select id="FindAnswerByqusid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_User_List" />
+    from quesanswer qa,db_user u
+    where qa.quid = #{refrenceid} and u.refrenceid=qa.uid
+  </select>
+</mapper>

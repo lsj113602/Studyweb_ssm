@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.ResourcesMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.Resources" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="restitle" property="restitle" jdbcType="VARCHAR" />
+    <result column="restext" property="restext" jdbcType="VARCHAR" />
+    <result column="rescategory" property="rescategory" jdbcType="VARCHAR" />
+    <result column="reskonwge" property="reskonwge" jdbcType="VARCHAR" />
+    <result column="rescourse" property="rescourse" jdbcType="VARCHAR" />
+    <result column="filesrc" property="filesrc" jdbcType="VARCHAR" />
+    <result column="fileimgsrc" property="fileimgsrc" jdbcType="VARCHAR" />
+    <result column="uploadauthor" property="uploadauthor" jdbcType="VARCHAR" />
+    <result column="uploadtime" property="uploadtime" jdbcType="TIMESTAMP" />
+    <result column="downnum" property="downnum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, restitle, restext, rescategory, reskonwge, rescourse, filesrc, fileimgsrc, 
+    uploadauthor, uploadtime, downnum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from resources
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from resources
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.Resources" >
+    insert into resources (refrenceid, restitle, restext, 
+      rescategory, reskonwge, rescourse, 
+      filesrc, fileimgsrc, uploadauthor, 
+      uploadtime, downnum)
+    values (#{refrenceid,jdbcType=CHAR}, #{restitle,jdbcType=VARCHAR}, #{restext,jdbcType=VARCHAR}, 
+      #{rescategory,jdbcType=VARCHAR}, #{reskonwge,jdbcType=VARCHAR}, #{rescourse,jdbcType=VARCHAR}, 
+      #{filesrc,jdbcType=VARCHAR}, #{fileimgsrc,jdbcType=VARCHAR}, #{uploadauthor,jdbcType=VARCHAR}, 
+      #{uploadtime,jdbcType=TIMESTAMP}, #{downnum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.Resources" >
+    insert into resources
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="restitle != null" >
+        restitle,
+      </if>
+      <if test="restext != null" >
+        restext,
+      </if>
+      <if test="rescategory != null" >
+        rescategory,
+      </if>
+      <if test="reskonwge != null" >
+        reskonwge,
+      </if>
+      <if test="rescourse != null" >
+        rescourse,
+      </if>
+      <if test="filesrc != null" >
+        filesrc,
+      </if>
+      <if test="fileimgsrc != null" >
+        fileimgsrc,
+      </if>
+      <if test="uploadauthor != null" >
+        uploadauthor,
+      </if>
+      <if test="uploadtime != null" >
+        uploadtime,
+      </if>
+      <if test="downnum != null" >
+        downnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="restitle != null" >
+        #{restitle,jdbcType=VARCHAR},
+      </if>
+      <if test="restext != null" >
+        #{restext,jdbcType=VARCHAR},
+      </if>
+      <if test="rescategory != null" >
+        #{rescategory,jdbcType=VARCHAR},
+      </if>
+      <if test="reskonwge != null" >
+        #{reskonwge,jdbcType=VARCHAR},
+      </if>
+      <if test="rescourse != null" >
+        #{rescourse,jdbcType=VARCHAR},
+      </if>
+      <if test="filesrc != null" >
+        #{filesrc,jdbcType=VARCHAR},
+      </if>
+      <if test="fileimgsrc != null" >
+        #{fileimgsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadauthor != null" >
+        #{uploadauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadtime != null" >
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downnum != null" >
+        #{downnum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.Resources" >
+    update resources
+    <set >
+      <if test="restitle != null" >
+        restitle = #{restitle,jdbcType=VARCHAR},
+      </if>
+      <if test="restext != null" >
+        restext = #{restext,jdbcType=VARCHAR},
+      </if>
+      <if test="rescategory != null" >
+        rescategory = #{rescategory,jdbcType=VARCHAR},
+      </if>
+      <if test="reskonwge != null" >
+        reskonwge = #{reskonwge,jdbcType=VARCHAR},
+      </if>
+      <if test="rescourse != null" >
+        rescourse = #{rescourse,jdbcType=VARCHAR},
+      </if>
+      <if test="filesrc != null" >
+        filesrc = #{filesrc,jdbcType=VARCHAR},
+      </if>
+      <if test="fileimgsrc != null" >
+        fileimgsrc = #{fileimgsrc,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadauthor != null" >
+        uploadauthor = #{uploadauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadtime != null" >
+        uploadtime = #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downnum != null" >
+        downnum = #{downnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.Resources" >
+    update resources
+    set restitle = #{restitle,jdbcType=VARCHAR},
+      restext = #{restext,jdbcType=VARCHAR},
+      rescategory = #{rescategory,jdbcType=VARCHAR},
+      reskonwge = #{reskonwge,jdbcType=VARCHAR},
+      rescourse = #{rescourse,jdbcType=VARCHAR},
+      filesrc = #{filesrc,jdbcType=VARCHAR},
+      fileimgsrc = #{fileimgsrc,jdbcType=VARCHAR},
+      uploadauthor = #{uploadauthor,jdbcType=VARCHAR},
+      uploadtime = #{uploadtime,jdbcType=TIMESTAMP},
+      downnum = #{downnum,jdbcType=INTEGER}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <!-- 根据课程查找文档 -->
+  <select id="FindWordResources" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from resources
+    where rescourse = #{rescourse} and rescategory = '文档' order by uploadtime desc limit 0,3
+  </select>
+  
+  <!-- 根据课程查找代码-->
+  <select id="FindCodeResources" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from resources
+    where rescourse = #{rescourse} and rescategory = '代码' order by uploadtime desc limit 0,3
+  </select>
+  
+  <!-- 根据课程查找工具 -->
+  <select id="FindToolResources" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from resources
+    where rescourse = #{rescourse} and rescategory = '工具' order by uploadtime desc limit 0,3
+  </select>
+  
+   <!-- 根据路径下载文件资源 -->
+  <select id="FindResourcesBysrc" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from resources
+    where filesrc=#{filename}
+  </select>
+</mapper>

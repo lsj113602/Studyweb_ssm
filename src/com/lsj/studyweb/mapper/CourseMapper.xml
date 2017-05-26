@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.Course" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="coursename" property="coursename" jdbcType="VARCHAR" />
+    <result column="courselevel" property="courselevel" jdbcType="VARCHAR" />
+    <result column="coursefield" property="coursefield" jdbcType="VARCHAR" />
+    <result column="courseintroduce" property="courseintroduce" jdbcType="VARCHAR" />
+    <result column="coursesrc" property="coursesrc" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, coursename, courselevel, coursefield, courseintroduce, coursesrc, number
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from course
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.Course" >
+    insert into course (refrenceid, coursename, courselevel, 
+      coursefield, courseintroduce, coursesrc, 
+      number)
+    values (#{refrenceid,jdbcType=CHAR}, #{coursename,jdbcType=VARCHAR}, #{courselevel,jdbcType=VARCHAR}, 
+      #{coursefield,jdbcType=VARCHAR}, #{courseintroduce,jdbcType=VARCHAR}, #{coursesrc,jdbcType=VARCHAR}, 
+      #{number,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.Course" >
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="coursename != null" >
+        coursename,
+      </if>
+      <if test="courselevel != null" >
+        courselevel,
+      </if>
+      <if test="coursefield != null" >
+        coursefield,
+      </if>
+      <if test="courseintroduce != null" >
+        courseintroduce,
+      </if>
+      <if test="coursesrc != null" >
+        coursesrc,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="coursename != null" >
+        #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="courselevel != null" >
+        #{courselevel,jdbcType=VARCHAR},
+      </if>
+      <if test="coursefield != null" >
+        #{coursefield,jdbcType=VARCHAR},
+      </if>
+      <if test="courseintroduce != null" >
+        #{courseintroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="coursesrc != null" >
+        #{coursesrc,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.Course" >
+    update course
+    <set >
+      <if test="coursename != null" >
+        coursename = #{coursename,jdbcType=VARCHAR},
+      </if>
+      <if test="courselevel != null" >
+        courselevel = #{courselevel,jdbcType=VARCHAR},
+      </if>
+      <if test="coursefield != null" >
+        coursefield = #{coursefield,jdbcType=VARCHAR},
+      </if>
+      <if test="courseintroduce != null" >
+        courseintroduce = #{courseintroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="coursesrc != null" >
+        coursesrc = #{coursesrc,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.Course" >
+    update course
+    set coursename = #{coursename,jdbcType=VARCHAR},
+      courselevel = #{courselevel,jdbcType=VARCHAR},
+      coursefield = #{coursefield,jdbcType=VARCHAR},
+      courseintroduce = #{courseintroduce,jdbcType=VARCHAR},
+      coursesrc = #{coursesrc,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  
+  <!--根据名称查找课程  -->
+  <select id="FindCourseByname" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where CourseName = #{coursename}
+  </select>
+  <!--查找所有课程  -->
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from course
+  </select>
+  
+    <!--查找所有课程  -->
+  <select id="FindCourseByField" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from course where coursefield=#{field}
+  </select>
+</mapper>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.Article" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="artext" property="artext" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="CHAR" />
+    <result column="arqasupport" property="arqasupport" jdbcType="INTEGER" />
+    <result column="artime" property="artime" jdbcType="TIMESTAMP" />
+    <result column="artitle" property="artitle" jdbcType="VARCHAR" />
+    <result column="artag" property="artag" jdbcType="VARCHAR" />
+    <association property="user" column="refrenceid" javaType="com.lsj.studyweb.model.DbUser">
+            <id column="userRefrenceId" jdbcType="CHAR" property="refrenceid"/>
+		    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+		    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+		    <result column="user_truename" property="userTruename" jdbcType="VARCHAR" />
+		    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+		    <result column="user_status" property="userStatus" jdbcType="BIT" />
+		    <result column="user_activationCode" property="userActivationcode" jdbcType="VARCHAR" />
+		    <result column="user_idcard" property="userIdcard" jdbcType="VARCHAR" />
+		    <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+		    <result column="user_qq" property="userQq" jdbcType="VARCHAR" />
+		    <result column="user_setbacks" property="userSetbacks" jdbcType="VARCHAR" />
+		    <result column="uuser_way" property="uuserWay" jdbcType="VARCHAR" />
+		    <result column="user_class" property="userClass" jdbcType="VARCHAR" />
+		    <result column="user_points" property="userPoints" jdbcType="INTEGER" />
+		    <result column="user_data" property="userData" jdbcType="TIMESTAMP" />
+		    <result column="user_job" property="userJob" jdbcType="VARCHAR" />
+		    <result column="user_level" property="userLevel" jdbcType="VARCHAR" />
+		    <result column="user_imgsrc" property="userImgsrc" jdbcType="VARCHAR" />
+		    <result column="mark" property="mark" jdbcType="INTEGER" />
+        </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    a.refrenceid as refrenceid, a.artext as artext, a.uid as uid, 
+    a.arqasupport as arqasupport, a.artime as artime, a.artitle as artitle, a.artag as artag,
+    u.refrenceid as userRefrenceId, u.user_name as user_name, u.user_password as user_password, u.user_truename as user_truename, u.user_email as user_email,
+    u.user_status as user_status, u.user_activationCode as user_activationCode,
+    u.user_idcard as user_idcard,u.user_tel as user_tel,u.user_qq as user_qq,u.user_setbacks as user_setbacks,
+    u.uuser_way as uuser_way,u.user_class as user_class,u.user_points as user_points,
+    u.user_data as user_data,u.user_job as user_job,
+    u.user_level as user_level,u.user_imgsrc as user_imgsrc,u.mark as mark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from article a,db_user u
+    where refrenceid = #{refrenceid,jdbcType=CHAR} and u.refrenceid=a.uid
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from article
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.Article" >
+    insert into article (refrenceid, artext, uid, 
+      arqasupport, artime, artitle, 
+      artag)
+    values (#{refrenceid,jdbcType=CHAR}, #{artext,jdbcType=VARCHAR}, #{uid,jdbcType=CHAR}, 
+      #{arqasupport,jdbcType=INTEGER}, #{artime,jdbcType=TIMESTAMP}, #{artitle,jdbcType=VARCHAR}, 
+      #{artag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.Article" >
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="artext != null" >
+        artext,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="arqasupport != null" >
+        arqasupport,
+      </if>
+      <if test="artime != null" >
+        artime,
+      </if>
+      <if test="artitle != null" >
+        artitle,
+      </if>
+      <if test="artag != null" >
+        artag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="artext != null" >
+        #{artext,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=CHAR},
+      </if>
+      <if test="arqasupport != null" >
+        #{arqasupport,jdbcType=INTEGER},
+      </if>
+      <if test="artime != null" >
+        #{artime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="artitle != null" >
+        #{artitle,jdbcType=VARCHAR},
+      </if>
+      <if test="artag != null" >
+        #{artag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.Article" >
+    update article
+    <set >
+      <if test="artext != null" >
+        artext = #{artext,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=CHAR},
+      </if>
+      <if test="arqasupport != null" >
+        arqasupport = #{arqasupport,jdbcType=INTEGER},
+      </if>
+      <if test="artime != null" >
+        artime = #{artime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="artitle != null" >
+        artitle = #{artitle,jdbcType=VARCHAR},
+      </if>
+      <if test="artag != null" >
+        artag = #{artag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.Article" >
+    update article
+    set artext = #{artext,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=CHAR},
+      arqasupport = #{arqasupport,jdbcType=INTEGER},
+      artime = #{artime,jdbcType=TIMESTAMP},
+      artitle = #{artitle,jdbcType=VARCHAR},
+      artag = #{artag,jdbcType=VARCHAR}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  
+  <!-- 根据作者查找文章 -->
+  <select id="FindArticleByauthor" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from article a,db_user u
+    where a.uid = #{refrenceid} and u.refrenceid=a.uid
+  </select>
+  
+   <!-- 根据课程查找文章 -->
+  <select id="FindArticleBycname" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from article a,db_user u
+    where a.artag = #{cname} and u.refrenceid=a.uid
+  </select>
+</mapper>

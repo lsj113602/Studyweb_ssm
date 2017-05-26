@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.TbSubjectMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.TbSubject" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="subjectTitle" property="subjecttitle" jdbcType="VARCHAR" />
+    <result column="subjectnandu" property="subjectnandu" jdbcType="VARCHAR" />
+    <result column="subjectxueke" property="subjectxueke" jdbcType="VARCHAR" />
+    <result column="subjectzhishidian" property="subjectzhishidian" jdbcType="VARCHAR" />
+    <result column="subjectOptionA" property="subjectoptiona" jdbcType="VARCHAR" />
+    <result column="subjectOptionB" property="subjectoptionb" jdbcType="VARCHAR" />
+    <result column="subjectOptionC" property="subjectoptionc" jdbcType="VARCHAR" />
+    <result column="subjectOptionD" property="subjectoptiond" jdbcType="VARCHAR" />
+    <result column="subjectAnswer" property="subjectanswer" jdbcType="VARCHAR" />
+    <result column="answer1" property="answer1" jdbcType="VARCHAR" />
+    <result column="answer2" property="answer2" jdbcType="VARCHAR" />
+    <result column="answer3" property="answer3" jdbcType="VARCHAR" />
+    <result column="answer4" property="answer4" jdbcType="VARCHAR" />
+    <result column="mark" property="mark" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.lsj.studyweb.model.TbSubject" extends="BaseResultMap" >
+    <result column="subjectParse" property="subjectparse" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, subjectTitle, subjectnandu, subjectxueke, subjectzhishidian, subjectOptionA, 
+    subjectOptionB, subjectOptionC, subjectOptionD, subjectAnswer, answer1, answer2, 
+    answer3, answer4, mark
+  </sql>
+  <sql id="Blob_Column_List" >
+    subjectParse
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_subject
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_subject
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.TbSubject" >
+    insert into tb_subject (refrenceid, subjectTitle, subjectnandu, 
+      subjectxueke, subjectzhishidian, subjectOptionA, 
+      subjectOptionB, subjectOptionC, subjectOptionD, 
+      subjectAnswer, answer1, answer2, 
+      answer3, answer4, mark, 
+      subjectParse)
+    values (#{refrenceid,jdbcType=CHAR}, #{subjecttitle,jdbcType=VARCHAR}, #{subjectnandu,jdbcType=VARCHAR}, 
+      #{subjectxueke,jdbcType=VARCHAR}, #{subjectzhishidian,jdbcType=VARCHAR}, #{subjectoptiona,jdbcType=VARCHAR}, 
+      #{subjectoptionb,jdbcType=VARCHAR}, #{subjectoptionc,jdbcType=VARCHAR}, #{subjectoptiond,jdbcType=VARCHAR}, 
+      #{subjectanswer,jdbcType=VARCHAR}, #{answer1,jdbcType=VARCHAR}, #{answer2,jdbcType=VARCHAR}, 
+      #{answer3,jdbcType=VARCHAR}, #{answer4,jdbcType=VARCHAR}, #{mark,jdbcType=INTEGER}, 
+      #{subjectparse,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.TbSubject" >
+    insert into tb_subject
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="subjecttitle != null" >
+        subjectTitle,
+      </if>
+      <if test="subjectnandu != null" >
+        subjectnandu,
+      </if>
+      <if test="subjectxueke != null" >
+        subjectxueke,
+      </if>
+      <if test="subjectzhishidian != null" >
+        subjectzhishidian,
+      </if>
+      <if test="subjectoptiona != null" >
+        subjectOptionA,
+      </if>
+      <if test="subjectoptionb != null" >
+        subjectOptionB,
+      </if>
+      <if test="subjectoptionc != null" >
+        subjectOptionC,
+      </if>
+      <if test="subjectoptiond != null" >
+        subjectOptionD,
+      </if>
+      <if test="subjectanswer != null" >
+        subjectAnswer,
+      </if>
+      <if test="answer1 != null" >
+        answer1,
+      </if>
+      <if test="answer2 != null" >
+        answer2,
+      </if>
+      <if test="answer3 != null" >
+        answer3,
+      </if>
+      <if test="answer4 != null" >
+        answer4,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+      <if test="subjectparse != null" >
+        subjectParse,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="subjecttitle != null" >
+        #{subjecttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectnandu != null" >
+        #{subjectnandu,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectxueke != null" >
+        #{subjectxueke,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectzhishidian != null" >
+        #{subjectzhishidian,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptiona != null" >
+        #{subjectoptiona,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptionb != null" >
+        #{subjectoptionb,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptionc != null" >
+        #{subjectoptionc,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptiond != null" >
+        #{subjectoptiond,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectanswer != null" >
+        #{subjectanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="answer1 != null" >
+        #{answer1,jdbcType=VARCHAR},
+      </if>
+      <if test="answer2 != null" >
+        #{answer2,jdbcType=VARCHAR},
+      </if>
+      <if test="answer3 != null" >
+        #{answer3,jdbcType=VARCHAR},
+      </if>
+      <if test="answer4 != null" >
+        #{answer4,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=INTEGER},
+      </if>
+      <if test="subjectparse != null" >
+        #{subjectparse,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.TbSubject" >
+    update tb_subject
+    <set >
+      <if test="subjecttitle != null" >
+        subjectTitle = #{subjecttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectnandu != null" >
+        subjectnandu = #{subjectnandu,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectxueke != null" >
+        subjectxueke = #{subjectxueke,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectzhishidian != null" >
+        subjectzhishidian = #{subjectzhishidian,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptiona != null" >
+        subjectOptionA = #{subjectoptiona,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptionb != null" >
+        subjectOptionB = #{subjectoptionb,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptionc != null" >
+        subjectOptionC = #{subjectoptionc,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptiond != null" >
+        subjectOptionD = #{subjectoptiond,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectanswer != null" >
+        subjectAnswer = #{subjectanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="answer1 != null" >
+        answer1 = #{answer1,jdbcType=VARCHAR},
+      </if>
+      <if test="answer2 != null" >
+        answer2 = #{answer2,jdbcType=VARCHAR},
+      </if>
+      <if test="answer3 != null" >
+        answer3 = #{answer3,jdbcType=VARCHAR},
+      </if>
+      <if test="answer4 != null" >
+        answer4 = #{answer4,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=INTEGER},
+      </if>
+      <if test="subjectparse != null" >
+        subjectParse = #{subjectparse,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lsj.studyweb.model.TbSubject" >
+    update tb_subject
+    set subjectTitle = #{subjecttitle,jdbcType=VARCHAR},
+      subjectnandu = #{subjectnandu,jdbcType=VARCHAR},
+      subjectxueke = #{subjectxueke,jdbcType=VARCHAR},
+      subjectzhishidian = #{subjectzhishidian,jdbcType=VARCHAR},
+      subjectOptionA = #{subjectoptiona,jdbcType=VARCHAR},
+      subjectOptionB = #{subjectoptionb,jdbcType=VARCHAR},
+      subjectOptionC = #{subjectoptionc,jdbcType=VARCHAR},
+      subjectOptionD = #{subjectoptiond,jdbcType=VARCHAR},
+      subjectAnswer = #{subjectanswer,jdbcType=VARCHAR},
+      answer1 = #{answer1,jdbcType=VARCHAR},
+      answer2 = #{answer2,jdbcType=VARCHAR},
+      answer3 = #{answer3,jdbcType=VARCHAR},
+      answer4 = #{answer4,jdbcType=VARCHAR},
+      mark = #{mark,jdbcType=INTEGER},
+      subjectParse = #{subjectparse,jdbcType=LONGVARCHAR}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.TbSubject" >
+    update tb_subject
+    set subjectTitle = #{subjecttitle,jdbcType=VARCHAR},
+      subjectnandu = #{subjectnandu,jdbcType=VARCHAR},
+      subjectxueke = #{subjectxueke,jdbcType=VARCHAR},
+      subjectzhishidian = #{subjectzhishidian,jdbcType=VARCHAR},
+      subjectOptionA = #{subjectoptiona,jdbcType=VARCHAR},
+      subjectOptionB = #{subjectoptionb,jdbcType=VARCHAR},
+      subjectOptionC = #{subjectoptionc,jdbcType=VARCHAR},
+      subjectOptionD = #{subjectoptiond,jdbcType=VARCHAR},
+      subjectAnswer = #{subjectanswer,jdbcType=VARCHAR},
+      answer1 = #{answer1,jdbcType=VARCHAR},
+      answer2 = #{answer2,jdbcType=VARCHAR},
+      answer3 = #{answer3,jdbcType=VARCHAR},
+      answer4 = #{answer4,jdbcType=VARCHAR},
+      mark = #{mark,jdbcType=INTEGER}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <!--查找考试试题  -->
+  <select id="FindSubBycou" resultMap="ResultMapWithBLOBs" parameterType="com.lsj.studyweb.model.viewmodel.SubjectDaoModel" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_subject
+    where Subjectxueke=#{cname} limit #{statnum},#{endnum}
+  </select>
+</mapper>

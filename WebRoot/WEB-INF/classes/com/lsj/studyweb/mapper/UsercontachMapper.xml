@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.UsercontachMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.Usercontach" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="user_id" property="userId" jdbcType="CHAR" />
+    <result column="videoid" property="videoid" jdbcType="CHAR" />
+    <result column="stadynum" property="stadynum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, user_id, videoid, stadynum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from usercontach
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from usercontach
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.Usercontach" >
+    insert into usercontach (refrenceid, user_id, videoid, 
+      stadynum)
+    values (#{refrenceid,jdbcType=CHAR}, #{userId,jdbcType=CHAR}, #{videoid,jdbcType=CHAR}, 
+      #{stadynum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.Usercontach" >
+    insert into usercontach
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="videoid != null" >
+        videoid,
+      </if>
+      <if test="stadynum != null" >
+        stadynum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="videoid != null" >
+        #{videoid,jdbcType=CHAR},
+      </if>
+      <if test="stadynum != null" >
+        #{stadynum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.Usercontach" >
+    update usercontach
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=CHAR},
+      </if>
+      <if test="videoid != null" >
+        videoid = #{videoid,jdbcType=CHAR},
+      </if>
+      <if test="stadynum != null" >
+        stadynum = #{stadynum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.Usercontach" >
+    update usercontach
+    set user_id = #{userId,jdbcType=CHAR},
+      videoid = #{videoid,jdbcType=CHAR},
+      stadynum = #{stadynum,jdbcType=INTEGER}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <!--查看用户是否看过该视频  -->
+  <select id="FindUcByuid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from usercontach
+    where user_id = #{userId} and videoid=#{videoid} 
+  </select>
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.UseranswerMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.Useranswer" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="qaid" property="qaid" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="CHAR" />
+    <result column="mark" property="mark" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, qaid, uid, mark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from useranswer
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from useranswer
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.Useranswer" >
+    insert into useranswer (refrenceid, qaid, uid, 
+      mark)
+    values (#{refrenceid,jdbcType=CHAR}, #{qaid,jdbcType=VARCHAR}, #{uid,jdbcType=CHAR}, 
+      #{mark,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.Useranswer" >
+    insert into useranswer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="qaid != null" >
+        qaid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="qaid != null" >
+        #{qaid,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=CHAR},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.Useranswer" >
+    update useranswer
+    <set >
+      <if test="qaid != null" >
+        qaid = #{qaid,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=CHAR},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=INTEGER},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.Useranswer" >
+    update useranswer
+    set qaid = #{qaid,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=CHAR},
+      mark = #{mark,jdbcType=INTEGER}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <!--查询用户是否点过支持或反对  -->
+   <select id="FindUserAnswer" resultMap="BaseResultMap" parameterType="com.lsj.studyweb.model.Useranswer" >
+    select 
+    <include refid="Base_Column_List" />
+    from useranswer
+    where qaid = #{qaid} and uid=#{uid}
+  </select>
+</mapper>

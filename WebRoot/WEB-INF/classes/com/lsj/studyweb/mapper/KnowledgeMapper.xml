@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.KnowledgeMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.Knowledge" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="knowledgename" property="knowledgename" jdbcType="VARCHAR" />
+    <result column="upknowledge" property="upknowledge" jdbcType="VARCHAR" />
+    <result column="nextknowledge" property="nextknowledge" jdbcType="VARCHAR" />
+    <result column="incourseid" property="incourseid" jdbcType="INTEGER" />
+    <result column="knowledgeweight" property="knowledgeweight" jdbcType="INTEGER" />
+    <result column="knowledgelevel" property="knowledgelevel" jdbcType="VARCHAR" />
+    <result column="knowledgeintroduce" property="knowledgeintroduce" jdbcType="VARCHAR" />
+    <result column="knowledgeimgsrc" property="knowledgeimgsrc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, knowledgename, upknowledge, nextknowledge, incourseid, knowledgeweight, 
+    knowledgelevel, knowledgeintroduce, knowledgeimgsrc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from knowledge
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from knowledge
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.Knowledge" >
+    insert into knowledge (refrenceid, knowledgename, upknowledge, 
+      nextknowledge, incourseid, knowledgeweight, 
+      knowledgelevel, knowledgeintroduce, knowledgeimgsrc
+      )
+    values (#{refrenceid,jdbcType=CHAR}, #{knowledgename,jdbcType=VARCHAR}, #{upknowledge,jdbcType=VARCHAR}, 
+      #{nextknowledge,jdbcType=VARCHAR}, #{incourseid,jdbcType=INTEGER}, #{knowledgeweight,jdbcType=INTEGER}, 
+      #{knowledgelevel,jdbcType=VARCHAR}, #{knowledgeintroduce,jdbcType=VARCHAR}, #{knowledgeimgsrc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.Knowledge" >
+    insert into knowledge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="knowledgename != null" >
+        knowledgename,
+      </if>
+      <if test="upknowledge != null" >
+        upknowledge,
+      </if>
+      <if test="nextknowledge != null" >
+        nextknowledge,
+      </if>
+      <if test="incourseid != null" >
+        incourseid,
+      </if>
+      <if test="knowledgeweight != null" >
+        knowledgeweight,
+      </if>
+      <if test="knowledgelevel != null" >
+        knowledgelevel,
+      </if>
+      <if test="knowledgeintroduce != null" >
+        knowledgeintroduce,
+      </if>
+      <if test="knowledgeimgsrc != null" >
+        knowledgeimgsrc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="knowledgename != null" >
+        #{knowledgename,jdbcType=VARCHAR},
+      </if>
+      <if test="upknowledge != null" >
+        #{upknowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="nextknowledge != null" >
+        #{nextknowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="incourseid != null" >
+        #{incourseid,jdbcType=INTEGER},
+      </if>
+      <if test="knowledgeweight != null" >
+        #{knowledgeweight,jdbcType=INTEGER},
+      </if>
+      <if test="knowledgelevel != null" >
+        #{knowledgelevel,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledgeintroduce != null" >
+        #{knowledgeintroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledgeimgsrc != null" >
+        #{knowledgeimgsrc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.Knowledge" >
+    update knowledge
+    <set >
+      <if test="knowledgename != null" >
+        knowledgename = #{knowledgename,jdbcType=VARCHAR},
+      </if>
+      <if test="upknowledge != null" >
+        upknowledge = #{upknowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="nextknowledge != null" >
+        nextknowledge = #{nextknowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="incourseid != null" >
+        incourseid = #{incourseid,jdbcType=INTEGER},
+      </if>
+      <if test="knowledgeweight != null" >
+        knowledgeweight = #{knowledgeweight,jdbcType=INTEGER},
+      </if>
+      <if test="knowledgelevel != null" >
+        knowledgelevel = #{knowledgelevel,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledgeintroduce != null" >
+        knowledgeintroduce = #{knowledgeintroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="knowledgeimgsrc != null" >
+        knowledgeimgsrc = #{knowledgeimgsrc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.Knowledge" >
+    update knowledge
+    set knowledgename = #{knowledgename,jdbcType=VARCHAR},
+      upknowledge = #{upknowledge,jdbcType=VARCHAR},
+      nextknowledge = #{nextknowledge,jdbcType=VARCHAR},
+      incourseid = #{incourseid,jdbcType=INTEGER},
+      knowledgeweight = #{knowledgeweight,jdbcType=INTEGER},
+      knowledgelevel = #{knowledgelevel,jdbcType=VARCHAR},
+      knowledgeintroduce = #{knowledgeintroduce,jdbcType=VARCHAR},
+      knowledgeimgsrc = #{knowledgeimgsrc,jdbcType=VARCHAR}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.MycourseMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.Mycourse" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="user_id" property="userId" jdbcType="CHAR" />
+    <result column="courseid" property="courseid" jdbcType="CHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, user_id, courseid, time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mycourse
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mycourse
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.Mycourse" >
+    insert into mycourse (refrenceid, user_id, courseid, 
+      time)
+    values (#{refrenceid,jdbcType=CHAR}, #{userId,jdbcType=CHAR}, #{courseid,jdbcType=CHAR}, 
+      #{time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.Mycourse" >
+    insert into mycourse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="courseid != null" >
+        courseid,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="courseid != null" >
+        #{courseid,jdbcType=CHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.Mycourse" >
+    update mycourse
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=CHAR},
+      </if>
+      <if test="courseid != null" >
+        courseid = #{courseid,jdbcType=CHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.Mycourse" >
+    update mycourse
+    set user_id = #{userId,jdbcType=CHAR},
+      courseid = #{courseid,jdbcType=CHAR},
+      time = #{time,jdbcType=TIMESTAMP}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <!--查询本课程在学人数  -->
+  <select id="FindbyNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mycourse
+    where courseid = #{refrenceid}
+  </select>
+  
+  <!--查询用户是否学习本课程  -->
+  <select id="FindMyCou" resultMap="BaseResultMap" parameterType="com.lsj.studyweb.model.Mycourse" >
+    select 
+    <include refid="Base_Column_List" />
+    from mycourse
+    where user_id=#{userId} and courseid=#{courseid}
+  </select>
+  
+
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.UserforumMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.Userforum" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="cf_id" property="cfId" jdbcType="CHAR" />
+    <result column="user_id" property="userId" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, cf_id, user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from userforum
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from userforum
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.Userforum" >
+    insert into userforum (refrenceid, cf_id, user_id
+      )
+    values (#{refrenceid,jdbcType=CHAR}, #{cfId,jdbcType=CHAR}, #{userId,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.Userforum" >
+    insert into userforum
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="cfId != null" >
+        cf_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="cfId != null" >
+        #{cfId,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.Userforum" >
+    update userforum
+    <set >
+      <if test="cfId != null" >
+        cf_id = #{cfId,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=CHAR},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.Userforum" >
+    update userforum
+    set cf_id = #{cfId,jdbcType=CHAR},
+      user_id = #{userId,jdbcType=CHAR}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  
+  <!--查询是否赞过  -->
+   <select id="FindUsFor" resultMap="BaseResultMap" parameterType="com.lsj.studyweb.model.Userforum" >
+    select 
+    <include refid="Base_Column_List" />
+    from userforum
+    where cf_id = #{cfId} and user_id=#{userId}
+  </select>
+  
+   <!--查询赞过的人数  -->
+   <select id="FindUserForu" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <!-- count(*) -->
+    <include refid="Base_Column_List" />
+    from userforum
+    where cf_id = #{refrenceid}
+  </select>
+</mapper>

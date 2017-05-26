@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.ForumreplyMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.Forumreply" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="cf_id" property="cfId" jdbcType="INTEGER" />
+    <result column="cf_userid" property="cfUserid" jdbcType="INTEGER" />
+    <result column="fr_context" property="frContext" jdbcType="VARCHAR" />
+    <result column="fr_user" property="frUser" jdbcType="VARCHAR" />
+    <result column="fr_time" property="frTime" jdbcType="TIMESTAMP" />
+    <result column="fr_stat" property="frStat" jdbcType="INTEGER" />
+    <result column="fr_count" property="frCount" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="BaseUserMap" type="com.lsj.studyweb.model.Forumreply" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="cf_id" property="cfId" jdbcType="INTEGER" />
+    <result column="cf_userid" property="cfUserid" jdbcType="INTEGER" />
+    <result column="fr_context" property="frContext" jdbcType="VARCHAR" />
+    <result column="fr_user" property="frUser" jdbcType="VARCHAR" />
+    <result column="fr_time" property="frTime" jdbcType="TIMESTAMP" />
+    <result column="fr_stat" property="frStat" jdbcType="INTEGER" />
+    <result column="fr_count" property="frCount" jdbcType="INTEGER" />
+    <association property="user" column="refrenceid" javaType="com.lsj.studyweb.model.DbUser">
+            <id column="userRefrenceId" jdbcType="CHAR" property="refrenceid"/>
+		    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+		    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+		    <result column="user_truename" property="userTruename" jdbcType="VARCHAR" />
+		    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+		    <result column="user_status" property="userStatus" jdbcType="BIT" />
+		    <result column="user_activationCode" property="userActivationcode" jdbcType="VARCHAR" />
+		    <result column="user_idcard" property="userIdcard" jdbcType="VARCHAR" />
+		    <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+		    <result column="user_qq" property="userQq" jdbcType="VARCHAR" />
+		    <result column="user_setbacks" property="userSetbacks" jdbcType="VARCHAR" />
+		    <result column="uuser_way" property="uuserWay" jdbcType="VARCHAR" />
+		    <result column="user_class" property="userClass" jdbcType="VARCHAR" />
+		    <result column="user_points" property="userPoints" jdbcType="INTEGER" />
+		    <result column="user_data" property="userData" jdbcType="TIMESTAMP" />
+		    <result column="user_job" property="userJob" jdbcType="VARCHAR" />
+		    <result column="user_level" property="userLevel" jdbcType="VARCHAR" />
+		    <result column="user_imgsrc" property="userImgsrc" jdbcType="VARCHAR" />
+		    <result column="mark" property="mark" jdbcType="INTEGER" />
+        </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, cf_id, cf_userid, fr_context, fr_user, fr_time, fr_stat, fr_count
+  </sql>
+  
+  <sql id="Base_User_List" >
+    fr.refrenceid as refrenceid, fr.cf_id as cf_id, fr.cf_userid as cf_userid, fr.fr_context as fr_context, 
+    fr.fr_user as fr_user, fr.fr_time as fr_time, fr.fr_stat as fr_stat, fr.fr_count as fr_count,
+    u.refrenceid as userRefrenceId, u.user_name as user_name, u.user_password as user_password, u.user_truename as user_truename, u.user_email as user_email,
+    u.user_status as user_status, u.user_activationCode as user_activationCode,
+    u.user_idcard as user_idcard,u.user_tel as user_tel,u.user_qq as user_qq,u.user_setbacks as user_setbacks,
+    u.uuser_way as uuser_way,u.user_class as user_class,u.user_points as user_points,
+    u.user_data as user_data,u.user_job as user_job,
+    u.user_level as user_level,u.user_imgsrc as user_imgsrc,u.mark as mark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from forumreply
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from forumreply
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.Forumreply" >
+    insert into forumreply (refrenceid, cf_id, cf_userid, 
+      fr_context, fr_user, fr_time, 
+      fr_stat, fr_count)
+    values (#{refrenceid,jdbcType=CHAR}, #{cfId,jdbcType=INTEGER}, #{cfUserid,jdbcType=INTEGER}, 
+      #{frContext,jdbcType=VARCHAR}, #{frUser,jdbcType=VARCHAR}, #{frTime,jdbcType=TIMESTAMP}, 
+      #{frStat,jdbcType=INTEGER}, #{frCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.Forumreply" >
+    insert into forumreply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="cfId != null" >
+        cf_id,
+      </if>
+      <if test="cfUserid != null" >
+        cf_userid,
+      </if>
+      <if test="frContext != null" >
+        fr_context,
+      </if>
+      <if test="frUser != null" >
+        fr_user,
+      </if>
+      <if test="frTime != null" >
+        fr_time,
+      </if>
+      <if test="frStat != null" >
+        fr_stat,
+      </if>
+      <if test="frCount != null" >
+        fr_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="cfId != null" >
+        #{cfId,jdbcType=INTEGER},
+      </if>
+      <if test="cfUserid != null" >
+        #{cfUserid,jdbcType=INTEGER},
+      </if>
+      <if test="frContext != null" >
+        #{frContext,jdbcType=VARCHAR},
+      </if>
+      <if test="frUser != null" >
+        #{frUser,jdbcType=VARCHAR},
+      </if>
+      <if test="frTime != null" >
+        #{frTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="frStat != null" >
+        #{frStat,jdbcType=INTEGER},
+      </if>
+      <if test="frCount != null" >
+        #{frCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.Forumreply" >
+    update forumreply
+    <set >
+      <if test="cfId != null" >
+        cf_id = #{cfId,jdbcType=INTEGER},
+      </if>
+      <if test="cfUserid != null" >
+        cf_userid = #{cfUserid,jdbcType=INTEGER},
+      </if>
+      <if test="frContext != null" >
+        fr_context = #{frContext,jdbcType=VARCHAR},
+      </if>
+      <if test="frUser != null" >
+        fr_user = #{frUser,jdbcType=VARCHAR},
+      </if>
+      <if test="frTime != null" >
+        fr_time = #{frTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="frStat != null" >
+        fr_stat = #{frStat,jdbcType=INTEGER},
+      </if>
+      <if test="frCount != null" >
+        fr_count = #{frCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.Forumreply" >
+    update forumreply
+    set cf_id = #{cfId,jdbcType=INTEGER},
+      cf_userid = #{cfUserid,jdbcType=INTEGER},
+      fr_context = #{frContext,jdbcType=VARCHAR},
+      fr_user = #{frUser,jdbcType=VARCHAR},
+      fr_time = #{frTime,jdbcType=TIMESTAMP},
+      fr_stat = #{frStat,jdbcType=INTEGER},
+      fr_count = #{frCount,jdbcType=INTEGER}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <!--根据评论ID查找评论回复  -->
+  <select id="FindforumBycfid" resultMap="BaseUserMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_User_List" />
+    from forumreply fr,db_user u
+    where fr.cf_id = #{refrenceid} and u.refrenceid=fr.cf_userid
+  </select>
+</mapper>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.UserfriendMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.Userfriend" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="uuid" property="uuid" jdbcType="CHAR" />
+    <result column="user_id" property="userId" jdbcType="CHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <resultMap id="BaseUserMap" type="com.lsj.studyweb.model.Userfriend" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="uuid" property="uuid" jdbcType="CHAR" />
+    <result column="user_id" property="userId" jdbcType="CHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <association property="user" column="refrenceid" javaType="com.lsj.studyweb.model.DbUser">
+            <id column="userRefrenceId" jdbcType="CHAR" property="refrenceid"/>
+		    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+		    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+		    <result column="user_truename" property="userTruename" jdbcType="VARCHAR" />
+		    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+		    <result column="user_status" property="userStatus" jdbcType="BIT" />
+		    <result column="user_activationCode" property="userActivationcode" jdbcType="VARCHAR" />
+		    <result column="user_idcard" property="userIdcard" jdbcType="VARCHAR" />
+		    <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+		    <result column="user_qq" property="userQq" jdbcType="VARCHAR" />
+		    <result column="user_setbacks" property="userSetbacks" jdbcType="VARCHAR" />
+		    <result column="uuser_way" property="uuserWay" jdbcType="VARCHAR" />
+		    <result column="user_class" property="userClass" jdbcType="VARCHAR" />
+		    <result column="user_points" property="userPoints" jdbcType="INTEGER" />
+		    <result column="user_data" property="userData" jdbcType="TIMESTAMP" />
+		    <result column="user_job" property="userJob" jdbcType="VARCHAR" />
+		    <result column="user_level" property="userLevel" jdbcType="VARCHAR" />
+		    <result column="user_imgsrc" property="userImgsrc" jdbcType="VARCHAR" />
+		    <result column="mark" property="mark" jdbcType="INTEGER" />
+        </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, uuid, user_id, time
+  </sql>
+  
+  <sql id="Base_User_List" >
+    uf.refrenceid as refrenceid, uf.uuid as uuid, uf.user_id as user_id, uf.time as time,
+    u.refrenceid as userRefrenceId, u.user_name as user_name, u.user_password as user_password, u.user_truename as user_truename, u.user_email as user_email,
+    u.user_status as user_status, u.user_activationCode as user_activationCode,
+    u.user_idcard as user_idcard,u.user_tel as user_tel,u.user_qq as user_qq,u.user_setbacks as user_setbacks,
+    u.uuser_way as uuser_way,u.user_class as user_class,u.user_points as user_points,
+    u.user_data as user_data,u.user_job as user_job,
+    u.user_level as user_level,u.user_imgsrc as user_imgsrc,u.mark as mark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from userfriend
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from userfriend
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.Userfriend" >
+    insert into userfriend (refrenceid, uuid, user_id, 
+      time)
+    values (#{refrenceid,jdbcType=CHAR}, #{uuid,jdbcType=CHAR}, #{userId,jdbcType=CHAR}, 
+      #{time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.Userfriend" >
+    insert into userfriend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="uuid != null" >
+        uuid,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="uuid != null" >
+        #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=CHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.Userfriend" >
+    update userfriend
+    <set >
+      <if test="uuid != null" >
+        uuid = #{uuid,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=CHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.Userfriend" >
+    update userfriend
+    set uuid = #{uuid,jdbcType=CHAR},
+      user_id = #{userId,jdbcType=CHAR},
+      time = #{time,jdbcType=TIMESTAMP}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <!--查询朋友的数量  -->
+  <select id="FindbyNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from userfriend
+    where user_id = #{uid}
+  </select>
+  <!--查询朋友的关注量  -->
+  <select id="FindbyFriNum" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from userfriend
+    where uuid = #{uid}
+  </select>
+  <!--查询该好友是否关注  -->
+  <select id="isguanzhu" resultMap="BaseResultMap" parameterType="com.lsj.studyweb.model.Userfriend" >
+    select 
+    <include refid="Base_Column_List" />
+    from userfriend
+    where user_id = #{userId} and uuid=#{uuid}
+  </select>
+  
+  <!--查询我关注的好友  -->
+  <select id="FindMyFri" resultMap="BaseUserMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_User_List" />
+    from userfriend uf,db_user u
+    where u.refrenceid=uf.uuid and uf.user_id=#{refrenceid}
+  </select>
+  
+  <!--查询关注我的用户  -->
+  <select id="FindFirendMy" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from userfriend
+    where uuid=#{refrenceid}
+  </select>
+</mapper>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.CourseforumMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.Courseforum" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="cf_title" property="cfTitle" jdbcType="VARCHAR" />
+    <result column="cf_context" property="cfContext" jdbcType="VARCHAR" />
+    <result column="cf_course" property="cfCourse" jdbcType="CHAR" />
+    <result column="cf_tags" property="cfTags" jdbcType="VARCHAR" />
+    <result column="cf_view" property="cfView" jdbcType="INTEGER" />
+    <result column="cf_count" property="cfCount" jdbcType="INTEGER" />
+    <result column="cf_time" property="cfTime" jdbcType="TIMESTAMP" />
+    <result column="cf_userid" property="cfUserid" jdbcType="CHAR" />
+    <result column="cf_top" property="cfTop" jdbcType="INTEGER" />
+    <result column="cf_idtj" property="cfIdtj" jdbcType="INTEGER" />
+    <result column="cf_stat" property="cfStat" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="BaseUserMap" type="com.lsj.studyweb.model.Courseforum" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="cf_title" property="cfTitle" jdbcType="VARCHAR" />
+    <result column="cf_context" property="cfContext" jdbcType="VARCHAR" />
+    <result column="cf_course" property="cfCourse" jdbcType="CHAR" />
+    <result column="cf_tags" property="cfTags" jdbcType="VARCHAR" />
+    <result column="cf_view" property="cfView" jdbcType="INTEGER" />
+    <result column="cf_count" property="cfCount" jdbcType="INTEGER" />
+    <result column="cf_time" property="cfTime" jdbcType="TIMESTAMP" />
+    <result column="cf_userid" property="cfUserid" jdbcType="CHAR" />
+    <result column="cf_top" property="cfTop" jdbcType="INTEGER" />
+    <result column="cf_idtj" property="cfIdtj" jdbcType="INTEGER" />
+    <result column="cf_stat" property="cfStat" jdbcType="INTEGER" />
+    <association property="user" column="refrenceid" javaType="com.lsj.studyweb.model.DbUser">
+            <id column="userRefrenceId" jdbcType="CHAR" property="refrenceid"/>
+		    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+		    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+		    <result column="user_truename" property="userTruename" jdbcType="VARCHAR" />
+		    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+		    <result column="user_status" property="userStatus" jdbcType="BIT" />
+		    <result column="user_activationCode" property="userActivationcode" jdbcType="VARCHAR" />
+		    <result column="user_idcard" property="userIdcard" jdbcType="VARCHAR" />
+		    <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+		    <result column="user_qq" property="userQq" jdbcType="VARCHAR" />
+		    <result column="user_setbacks" property="userSetbacks" jdbcType="VARCHAR" />
+		    <result column="uuser_way" property="uuserWay" jdbcType="VARCHAR" />
+		    <result column="user_class" property="userClass" jdbcType="VARCHAR" />
+		    <result column="user_points" property="userPoints" jdbcType="INTEGER" />
+		    <result column="user_data" property="userData" jdbcType="TIMESTAMP" />
+		    <result column="user_job" property="userJob" jdbcType="VARCHAR" />
+		    <result column="user_level" property="userLevel" jdbcType="VARCHAR" />
+		    <result column="user_imgsrc" property="userImgsrc" jdbcType="VARCHAR" />
+		    <result column="mark" property="mark" jdbcType="INTEGER" />
+        </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, cf_title, cf_context, cf_course, cf_tags, cf_view, cf_count, cf_time, 
+    cf_userid, cf_top, cf_idtj, cf_stat
+  </sql>
+  
+  <sql id="Base_User_List" >
+    cf.refrenceid as refrenceid, cf.cf_title as cf_title, cf.cf_context as cf_context, cf.cf_course as cf_course,
+    cf.cf_tags as cf_tags, cf.cf_view as cf_view, cf.cf_count as cf_count, cf.cf_time as cf_time, 
+    cf.cf_userid as cf_userid, cf.cf_top as cf_top, cf.cf_idtj as cf_idtj, cf.cf_stat as cf_stat,
+    u.refrenceid as userRefrenceId, u.user_name as user_name, u.user_password as user_password, u.user_truename as user_truename, u.user_email as user_email,
+    u.user_status as user_status, u.user_activationCode as user_activationCode,
+    u.user_idcard as user_idcard,u.user_tel as user_tel,u.user_qq as user_qq,u.user_setbacks as user_setbacks,
+    u.uuser_way as uuser_way,u.user_class as user_class,u.user_points as user_points,
+    u.user_data as user_data,u.user_job as user_job,
+    u.user_level as user_level,u.user_imgsrc as user_imgsrc,u.mark as mark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseUserMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_User_List" />
+    from courseforum cf,db_user u
+    where cf.refrenceid = #{refrenceid} and u.refrenceid=cf.cf_userid
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from courseforum
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.Courseforum" >
+    insert into courseforum (refrenceid, cf_title, cf_context, 
+      cf_course, cf_tags, cf_view, 
+      cf_count, cf_time, cf_userid, 
+      cf_top, cf_idtj, cf_stat
+      )
+    values (#{refrenceid,jdbcType=CHAR}, #{cfTitle,jdbcType=VARCHAR}, #{cfContext,jdbcType=VARCHAR}, 
+      #{cfCourse,jdbcType=CHAR}, #{cfTags,jdbcType=VARCHAR}, #{cfView,jdbcType=INTEGER}, 
+      #{cfCount,jdbcType=INTEGER}, #{cfTime,jdbcType=TIMESTAMP}, #{cfUserid,jdbcType=CHAR}, 
+      #{cfTop,jdbcType=INTEGER}, #{cfIdtj,jdbcType=INTEGER}, #{cfStat,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.Courseforum" >
+    insert into courseforum
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="cfTitle != null" >
+        cf_title,
+      </if>
+      <if test="cfContext != null" >
+        cf_context,
+      </if>
+      <if test="cfCourse != null" >
+        cf_course,
+      </if>
+      <if test="cfTags != null" >
+        cf_tags,
+      </if>
+      <if test="cfView != null" >
+        cf_view,
+      </if>
+      <if test="cfCount != null" >
+        cf_count,
+      </if>
+      <if test="cfTime != null" >
+        cf_time,
+      </if>
+      <if test="cfUserid != null" >
+        cf_userid,
+      </if>
+      <if test="cfTop != null" >
+        cf_top,
+      </if>
+      <if test="cfIdtj != null" >
+        cf_idtj,
+      </if>
+      <if test="cfStat != null" >
+        cf_stat,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="cfTitle != null" >
+        #{cfTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="cfContext != null" >
+        #{cfContext,jdbcType=VARCHAR},
+      </if>
+      <if test="cfCourse != null" >
+        #{cfCourse,jdbcType=CHAR},
+      </if>
+      <if test="cfTags != null" >
+        #{cfTags,jdbcType=VARCHAR},
+      </if>
+      <if test="cfView != null" >
+        #{cfView,jdbcType=INTEGER},
+      </if>
+      <if test="cfCount != null" >
+        #{cfCount,jdbcType=INTEGER},
+      </if>
+      <if test="cfTime != null" >
+        #{cfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cfUserid != null" >
+        #{cfUserid,jdbcType=CHAR},
+      </if>
+      <if test="cfTop != null" >
+        #{cfTop,jdbcType=INTEGER},
+      </if>
+      <if test="cfIdtj != null" >
+        #{cfIdtj,jdbcType=INTEGER},
+      </if>
+      <if test="cfStat != null" >
+        #{cfStat,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.Courseforum" >
+    update courseforum
+    <set >
+      <if test="cfTitle != null" >
+        cf_title = #{cfTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="cfContext != null" >
+        cf_context = #{cfContext,jdbcType=VARCHAR},
+      </if>
+      <if test="cfCourse != null" >
+        cf_course = #{cfCourse,jdbcType=CHAR},
+      </if>
+      <if test="cfTags != null" >
+        cf_tags = #{cfTags,jdbcType=VARCHAR},
+      </if>
+      <if test="cfView != null" >
+        cf_view = #{cfView,jdbcType=INTEGER},
+      </if>
+      <if test="cfCount != null" >
+        cf_count = #{cfCount,jdbcType=INTEGER},
+      </if>
+      <if test="cfTime != null" >
+        cf_time = #{cfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cfUserid != null" >
+        cf_userid = #{cfUserid,jdbcType=CHAR},
+      </if>
+      <if test="cfTop != null" >
+        cf_top = #{cfTop,jdbcType=INTEGER},
+      </if>
+      <if test="cfIdtj != null" >
+        cf_idtj = #{cfIdtj,jdbcType=INTEGER},
+      </if>
+      <if test="cfStat != null" >
+        cf_stat = #{cfStat,jdbcType=INTEGER},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.Courseforum" >
+    update courseforum
+    set cf_title = #{cfTitle,jdbcType=VARCHAR},
+      cf_context = #{cfContext,jdbcType=VARCHAR},
+      cf_course = #{cfCourse,jdbcType=CHAR},
+      cf_tags = #{cfTags,jdbcType=VARCHAR},
+      cf_view = #{cfView,jdbcType=INTEGER},
+      cf_count = #{cfCount,jdbcType=INTEGER},
+      cf_time = #{cfTime,jdbcType=TIMESTAMP},
+      cf_userid = #{cfUserid,jdbcType=CHAR},
+      cf_top = #{cfTop,jdbcType=INTEGER},
+      cf_idtj = #{cfIdtj,jdbcType=INTEGER},
+      cf_stat = #{cfStat,jdbcType=INTEGER}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  
+  <!-- 根据视频ID查找评论 -->
+  <select id="FindcourseforumByVideoid" resultMap="BaseUserMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_User_List" />
+    from courseforum cf,db_user u
+    where cf_course = #{refrenceid} and u.refrenceid=cf.cf_userid
+  </select>
+  
+
+</mapper>

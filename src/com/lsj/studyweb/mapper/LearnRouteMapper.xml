@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lsj.studyweb.dao.LearnRouteMapper" >
+  <resultMap id="BaseResultMap" type="com.lsj.studyweb.model.LearnRoute" >
+    <id column="refrenceid" property="refrenceid" jdbcType="CHAR" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="KnowledgeId" property="knowledgeid" jdbcType="INTEGER" />
+    <result column="lr_state" property="lrState" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    refrenceid, uid, KnowledgeId, lr_state, start_time, end_time, number
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from learn_route
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from learn_route
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lsj.studyweb.model.LearnRoute" >
+    insert into learn_route (refrenceid, uid, KnowledgeId, 
+      lr_state, start_time, end_time, 
+      number)
+    values (#{refrenceid,jdbcType=CHAR}, #{uid,jdbcType=INTEGER}, #{knowledgeid,jdbcType=INTEGER}, 
+      #{lrState,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{number,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lsj.studyweb.model.LearnRoute" >
+    insert into learn_route
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        refrenceid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="knowledgeid != null" >
+        KnowledgeId,
+      </if>
+      <if test="lrState != null" >
+        lr_state,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="refrenceid != null" >
+        #{refrenceid,jdbcType=CHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="knowledgeid != null" >
+        #{knowledgeid,jdbcType=INTEGER},
+      </if>
+      <if test="lrState != null" >
+        #{lrState,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lsj.studyweb.model.LearnRoute" >
+    update learn_route
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="knowledgeid != null" >
+        KnowledgeId = #{knowledgeid,jdbcType=INTEGER},
+      </if>
+      <if test="lrState != null" >
+        lr_state = #{lrState,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+    </set>
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lsj.studyweb.model.LearnRoute" >
+    update learn_route
+    set uid = #{uid,jdbcType=INTEGER},
+      KnowledgeId = #{knowledgeid,jdbcType=INTEGER},
+      lr_state = #{lrState,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      number = #{number,jdbcType=INTEGER}
+    where refrenceid = #{refrenceid,jdbcType=CHAR}
+  </update>
+</mapper>
