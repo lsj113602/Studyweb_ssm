@@ -8,5 +8,5 @@ public class UuidUtil {
 	}
 	///
 	int i;
-
+int j;
 }
