@@ -1,8 +1,8 @@
 /com
 /config.properties
+/daimamode
 /log4j.properties
 /spring-mvc.properties
 /spring-mvc.xml
 /spring-mybatis.xml
 /spring.xml
-/daimamode
