@@ -6,5 +6,7 @@ public class UuidUtil {
 	public static String getUuid(){
 		return UUID.randomUUID().toString().replace("-", "").toUpperCase();
 	}
+	///
+	int i;
 
 }
